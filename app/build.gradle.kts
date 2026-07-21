@@ -8,14 +8,14 @@ plugins {
 android {
     namespace = "com.example.nahplay"
     compileSdk {
-        version = release(36) {
+        version = release(37) {
             minorApiLevel = 1
         }
     }
 
     defaultConfig {
         applicationId = "com.example.nahplay"
-        minSdk = 24
+        minSdk = 25
         //noinspection OldTargetApi
         targetSdk = 36
         versionCode = 1

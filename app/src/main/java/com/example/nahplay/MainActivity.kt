@@ -18,14 +18,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            NahPlayTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Nah Play",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+            NahPlayTheme(
+                {
+                    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                        Greeting(
+                            name = "Nah Play",
+                            modifier = Modifier.padding(innerPadding)
+                        )
+                    }
+                },
+            )
         }
     }
 }
@@ -41,7 +43,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    NahPlayTheme {
-        Greeting("Android")
-    }
+    NahPlayTheme(
+        {
+            Greeting("Android")
+        },
+    )
 }
