@@ -2,6 +2,7 @@ package com.example.nahplay.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -24,7 +25,7 @@ import com.example.nahplay.viewModel.MusicViewModel
 @Composable
 fun NavGraph(
     viewModel: MusicViewModel,
-    playerController: PlayerController
+    playerController: PlayerController,
 ){
     val navController = rememberNavController()
     val navBackStackEntry  by navController.currentBackStackEntryAsState()
