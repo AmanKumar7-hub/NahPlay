@@ -1,14 +1,13 @@
 package com.example.nahplay.navigation
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -16,6 +15,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.nahplay.player.PlayerController
 import com.example.nahplay.ui.components.MiniPlayer
+import com.example.nahplay.ui.screens.FavoritesScreen
+import com.example.nahplay.ui.screens.LibraryScreen
+import com.example.nahplay.ui.screens.NowPlayingScreen
+import com.example.nahplay.ui.screens.PlaylistsScreen
 import com.example.nahplay.viewModel.MusicViewModel
 
 @Composable
@@ -29,7 +32,7 @@ fun NavGraph(
 
     val showBottomBar = currentRoute != Screen.NowPlaying.route
 
-    androidx.compose.material3.Scaffold(
+    Scaffold(
         bottomBar = {
             if (showBottomBar) {
                 //MiniPlayer above bottom nav
@@ -59,38 +62,56 @@ fun NavGraph(
                 )
             }
         }
-    ) { _ ->
+    ) { innerPadding ->
 
         NavHost(
             navController    = navController,
-            startDestination = Screen.Library.route
+            startDestination = Screen.Library.route,
+            modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Library.route) {
-                PlaceholderScreen("Library")
+                LibraryScreen(
+                    viewModel = viewModel,
+                    playerController = playerController,
+                    paddingValues =PaddingValues (0.dp )
+                )
             }
 
             composable(Screen.NowPlaying.route) {
-                PlaceholderScreen("Now Playing")
+                NowPlayingScreen(
+                    viewModel = viewModel,
+                    playerController = playerController,
+                    onBack = { navController.popBackStack() },
+                    paddingValues = PaddingValues(0.dp),
+                )
             }
 
             composable(Screen.Favourites.route) {
-                PlaceholderScreen("Favorites")
+                FavoritesScreen(
+                    viewModel = viewModel,
+                    playerController = playerController,
+                    //onBack = { navController.popBackStack()},
+                    paddingValues = PaddingValues(0.dp)
+                )
             }
 
             composable(Screen.Playlists.route) {
-                PlaceholderScreen("Playlists")
+                PlaylistsScreen(
+                    viewModel = viewModel,
+                    paddingValues = PaddingValues(0.dp)
+                )
             }
         }
     }
 }
 
-@Composable
-fun PlaceholderScreen(name:String){
-    Box(modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center){
-        Text(
-            text=name,
-            color=Color.White
-        )
-    }
-}
+//@Composable
+//fun PlaceholderScreen(name:String){
+//    Box(modifier = Modifier.fillMaxSize(),
+//        contentAlignment = Alignment.Center){
+//        Text(
+//            text=name,
+//            color=Color.White
+//        )
+//    }
+//}
